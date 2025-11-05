@@ -142,30 +142,36 @@
   <!-- Scripts -->
   <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
   <script>
-    AOS.init({ duration: 1000, once: true });
+  AOS.init({ duration: 1000, once: true });
 
-    // Theme Toggle
-    const themeToggle = document.getElementById('themeToggle');
-    themeToggle.addEventListener('click', () => {
-      document.documentElement.classList.toggle('dark');
-      themeToggle.textContent = document.documentElement.classList.contains('dark') ? '☀️' : '🌙';
-    });
+  // Theme Toggle
+  const themeToggle = document.getElementById('themeToggle');
+  themeToggle.addEventListener('click', () => {
+    if (window.innerWidth < 768) {
+      alert("Dark mode is available only on desktop view.");
+      return; // Prevent toggling on mobile
+    }
 
-    // Simple filter for catalogue
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    const cards = document.querySelectorAll('.saree-card');
-    filterBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const filter = btn.getAttribute('data-filter');
-        cards.forEach(card => {
-          if(filter === 'all' || card.classList.contains(filter)) {
-            card.classList.remove('hidden');
-          } else {
-            card.classList.add('hidden');
-          }
-        });
+    document.documentElement.classList.toggle('dark');
+    themeToggle.textContent = document.documentElement.classList.contains('dark') ? '☀️' : '🌙';
+  });
+
+  // Simple filter for catalogue
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const cards = document.querySelectorAll('.saree-card');
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const filter = btn.getAttribute('data-filter');
+      cards.forEach(card => {
+        if (filter === 'all' || card.classList.contains(filter)) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
       });
     });
-  </script>
+  });
+</script>
+
 </body>
 </html>
